@@ -1,19 +1,21 @@
 <!-- Right sidebar used in multiple templates -->
 <aside id="right-section">
-    <ul>
-        <li><a href="{% url 'user:home' %}"><i class="fab fa-twitter clear flex-row"></i></a></li>
-        {% if request.user.is_authenticated %}
-            <li><a href="{% url 'user:home' %}" {% if request.resolver_match.url_name == "home" %}class="current"{% endif %}><i class="fas fa-home"></i>Home</a></li>
-            <li><a href="#"><i class="fas fa-hashtag"></i>Explore</a></li>
-            <li><a href="#"><i class="far fa-bell"></i>Notifications</a></li>
-            <li><a href="#"><i class="far fa-envelope"></i>Messages</a></li>
-            <li><a href="#"><i class="far fa-bookmark"></i>Bookmarks</a></li>
-            <li><a href="#"><i class="far fa-list-alt"></i>Lists</a></li>
-            <li><a href="{% url 'user:profile' request.user.username %}" {% if request.resolver_match.url_name == "profile" %}class="current"{% endif %}><i class="fas fa-user"></i>Profile</a></li>
-            <li><a href="{% url 'user:logout' %}"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
-            <li><a href="#" class="btn btn-login-primary">Tweet</a></li>
-        {% endif %}
-    </ul>
+    <div class="fixed">
+        <ul>
+            <li><a href="{% url 'user:home' %}"><i class="fab fa-twitter clear flex-row"></i></a></li>
+            {% if request.user.is_authenticated %}
+                <li><a href="{% url 'user:home' %}" {% if request.resolver_match.url_name == "home" %}class="current"{% endif %}><i class="fas fa-home"></i>Home</a></li>
+                <li><a href="#"><i class="fas fa-hashtag"></i>Explore</a></li>
+                <li><a href="#"><i class="far fa-bell"></i>Notifications</a></li>
+                <li><a href="#"><i class="far fa-envelope"></i>Messages</a></li>
+                <li><a href="#"><i class="far fa-bookmark"></i>Bookmarks</a></li>
+                <li><a href="#"><i class="far fa-list-alt"></i>Lists</a></li>
+                <li><a href="{% url 'user:profile' request.user.username %}" {% if request.resolver_match.url_name == "profile" %}class="current"{% endif %}><i class="fas fa-user"></i>Profile</a></li>
+                <li><a href="{% url 'user:logout' %}"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+                <li><a href="#" class="btn btn-login-primary">Tweet</a></li>
+            {% endif %}
+        </ul>
+    </div>
 </aside>
 
 <!-- Javascript to set active link on the sidebar -->

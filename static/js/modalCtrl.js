@@ -19,7 +19,7 @@ function loadEventListeners() {
             myModal.style.top = document.documentElement.scrollTop + "px";
             setTimeout(() => {
                 myModal.classList.remove("inactive");
-                document.body.style.overflow = "hidden";
+                document.body.style.overflowY = "hidden";
                 document.body.style.height = "100%";
             }, 200);
         });

@@ -65,6 +65,6 @@ export function buildPostContent(data, container) {
                     </div>`;  
         }
     });
-    // Add everythin to the Post container
+    // Add everything to the Post container
     container.innerHTML += html;
 };
