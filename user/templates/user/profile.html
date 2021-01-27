@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load custom_tags %}
+{% load static %}
+
+{% block title %}Profile page{% endblock %}
+
+{% block content %}
+<!-- Include modal to handle profile update -->
+{% include "modal.html" %}
+
+    <!-- Main middle section of the page, diplaying posts, comments, and info about users profile -->
+    <main id="posts-section">
+        <!-- Check whether the profile is already followed by the logged in user -->
+        {% if request.resolver_match.url_name == "profile" %}
+            {% is_followed profile.id user.id as is_followed %}
+        {% endif %}
+        <div class="posts-header">
+            <a {% if owner %} href="{% url 'user:profile' owner.user %}"{% else %}href="{% url 'user:profile' profile.user %}"{% endif %} class="social-icon grid-center"><i class="fas fa-arrow-left clear"></i></a>
+            <p class="text-middle clear">{% if owner %}{{ owner }}{% else %}{{ user }}{% endif %}</p>
+            <p class="text-small clear">{% if owner %}{{ owner.num_of_tweets|format_number }}{% else %}{{ user.num_of_tweets|format_number }}{% endif %} Tweets</p>
+            {% if is_followed %}
+            <a href="#" class="btn btn-login-secondary btn-follow top" id="btn-follow">Unfollow</a>
+            {% else %}
+            <a href="#" class="btn btn-login-secondary btn-follow top" id="btn-follow">Follow</a>
+            {% endif %}
+        </div>
+        <!-- Info about selected profile, only displayed on profile page, not on comments page -->
+        {% if request.resolver_match.url_name == "profile" %}
+            <div class="profile-info">
+                <div class="cover-image">
+                    <a href="{{ user.cover_pic.url }}"><img class="cover-img" src="{{ user.cover_pic.url }}" alt="Not found"></a>
+                    <a href="{{ user.profile_pic.url }}"><img class="profile-img" src="{{ user.profile_pic.url }}" alt="Not found"></a>
+                    <!-- Only show these buttons if the profile does not belong to the signed in user -->
+                    {% if user.user != request.user %}
+                        {% if is_followed %}
+                        <a href="#" class="btn btn-login-secondary btn-follow bottom" id="btn-follow">Unfollow</a>
+                        {% else %}
+                        <a href="#" class="btn btn-login-secondary btn-follow bottom" id="btn-follow">Follow</a>
+                        {% endif %}
+                    {% else %}
+                    <a href="#" class="btn btn-login-secondary btn-follow bottom" id="myModalBtn">Edit profile</a>
+                    {% endif %}
+                </div>
+                <div class="user-info mt-8 ml-1" data-id="{{ user.id }}">
+                    <p class="text-middle clear">{{ user }}</p>
+                    <p class="text-medium">@{{ user.user }}</p>
+                    <!-- <p class="text-medium">{{ user.description }}</p> -->
+                    <p class="text-medium"><i class="far fa-calendar-alt clear"></i> Joined {{ user.created_on|date:"F Y" }}</p>
+                    <a href="#" class="mr-1 following"><strong>{{ user.num_of_following|format_number }}</strong> Following</a>
+                    <a href="#" class="mr-1 followers"><strong>{{ user.num_of_followers|format_number }}</strong> Followers</a>
+                </div>
+                <ul class="mt-1">
+                    <a href="#" class="current" ><li class="grid-center">Tweets</li></a>
+                    <a href="#" ><li class="grid-center">Tweets & replies</li></a>
+                    <a href="#" ><li class="grid-center">Media</li></a>
+                    <a href="#" ><li class="grid-center">Likes</li></a>
+                </ul>
+            </div>
+        {% endif %}
+        <!-- Container of each post if any -->
+        <div class="posts" {% if profile %}data-profile="{{ profile.id }}"{% else %}data-profile="{{ user.id }}"{% endif %}>
+            <!-- If multiple posts are being displayed: used for PROFILE page -->
+            {% if posts %}
+                {% for post in posts %}
+                <div class="post-container">
+                    <div class="user-photo"><a href="{{ post.owner.profile_pic.url }}"></a><img src="{{ post.owner.profile_pic.url }}" alt="Not found"></a></div>
+                    <div class="post-card">
+                        <div class="post-title"><a href="{{post.owner.get_absolute_url}}"><strong>{{ post.owner }}</strong></a><span> @{{ post.username }} · {{ post.created_on|date:"M j, Y" }}<i class="fas fa-ellipsis-h flex-row"></i></span>
+                        </div>
+                        {% if post.title != "0" %}
+                            <div class="post-title">{{ post.title }}</div>
+                        {% endif %}
+                        <div class="post-content">{{ post.content }}
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam, aut. Illum exercitationem minus neque consequatur eius expedita libero. Maiores, repudiandae.</p>
+                        </div>
+                        <div class="post-actions" data-id="{{ post.id }}" data-owner="{{ post.owner.id }}">
+                            <a href="{{ post.get_absolute_url }}" class="social-icon"><i class="far fa-comment clear flex-row" {% if post.num_of_comments %}data-number="{{ post.num_of_comments|format_number }}"{% endif %}></i></a>
+                            <a href="#" class="social-icon"><i class="fas fa-retweet clear flex-row"></i></a>
+                            {% already_liked post.id request.user.id as already_liked %}
+                            {% if already_liked %}
+                                <a href="#" class="social-icon"><i class="fas fa-heart clear flex-row liked" {% if post.num_of_likes %}data-number="{{ post.num_of_likes|format_number }}"{% endif %}></i></a>
+                            {% else %}
+                                <a href="#" class="social-icon"><i class="far fa-heart clear flex-row" {% if post.num_of_likes %}data-number="{{ post.num_of_likes|format_number }}"{% endif %}></i></a>
+                            {% endif %}
+                            <a href="#" class="social-icon"><i class="fas fa-share-square flex-row"></i></a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            <!-- If user selects a post: used for COMMENTS page -->
+            {% elif post %}
+                <div class="post-container">
+                    <div class="user-photo"><a href="{{ post.owner.profile_pic.url }}"><img src="{{ post.owner.profile_pic.url }}" alt="Not found"></a></div>
+                    <div class="post-card">
+                        <div class="post-title"><a href="{{post.owner.get_absolute_url}}"><strong>{{ post.owner }}</strong></a><span> @{{post.username}} · {{ post.created_on|date:"M j, Y" }}<i class="fas fa-ellipsis-h flex-row"></i></span>
+                        </div>
+                        {% if post.title != "0" %}
+                            <div class="post-title">{{ post.title }}</div>
+                        {% endif %}
+                        <div class="post-content">{{ post.content }}
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam, aut. Illum exercitationem minus neque consequatur eius expedita libero. Maiores, repudiandae.</p>
+                        </div>
+                        <div class="post-actions" data-id="{{ post.id }}" data-owner="{{ post.owner.id }}">
+                            <a href="{{ post.get_absolute_url }}" class="social-icon"><i class="far fa-comment clear flex-row" {% if post.num_of_comments %}data-number="{{ post.num_of_comments|format_number }}"{% endif %}></i></a>
+                            <a href="#" class="social-icon"><i class="fas fa-retweet clear flex-row"></i></a>
+                            {% already_liked post.id request.user.id as already_liked %}
+                            {% if already_liked %}
+                                <a href="#" class="social-icon"><i class="fas fa-heart clear flex-row liked" {% if post.num_of_likes %}data-number="{{ post.num_of_likes|format_number }}"{% endif %}></i></a>
+                            {% else %}
+                                <a href="#" class="social-icon"><i class="far fa-heart clear flex-row" {% if post.num_of_likes %}data-number="{{ post.num_of_likes|format_number }}"{% endif %}></i></a>
+                            {% endif %}
+                            <a href="#" class="social-icon"><i class="fas fa-share-square flex-row"></i></a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+            <!-- If no posts are available -->
+                <h1 style="color: grey; text-align: center" class="mt-1">No tweets to show.</h1>
+            {% endif %}
+            
+            <!-- COMMENTS page inherits from this template, comments are inserted here -->
+            {% block comments %} {% endblock %}
+        </div>
+    </main>
+    <aside id="search-section">
+        <!-- <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis atque quaerat molestiae. Doloremque exercitationem iure, debitis vero eaque earum vitae.</h1>
+        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis atque quaerat molestiae. Doloremque exercitationem iure, debitis vero eaque earum vitae.</h1>
+        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis atque quaerat molestiae. Doloremque exercitationem iure, debitis vero eaque earum vitae.</h1> -->
+    </aside>
+{% endblock %}
+
+
+<!-- Javascript code integration -->
+{% block javascript %}
+    <script src="{% static 'js/UIControl.js' %}"></script>
+    <script src="{% static 'js/modalCtrl.js' %}"></script>
+    <script src="{% static 'js/dataCtrl.js' %}" type="module"></script>
+{% endblock %}

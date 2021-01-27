@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Log in on Twitter / Twitter</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Login section container -->
+        <section class="login-section">
+            <!-- Login header -->
+            <div class="login-header">
+                <div class="login-icon"><i class="fab fa-twitter fa-2x"></i></div>
+                <h2>Log in to Twitter</h2>
+            </div>
+            <!-- Show messages if any -->
+            {% if messages %}
+                {% for message in messages %}
+                <div class="messages messages-{{ message.tags }}"><h3>{{ message }}</h3></div>
+                {% endfor %}
+            {% endif %}
+            <!-- Login form -->
+            <div class="form login-form">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="form-field">
+                        <div class="input-field">
+                            <span>{{ form.username.label }}</span>
+                            {{ form.username }}
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="input-field">
+                            <span>{{ form.password.label }}</span>
+                            {{ form.password }}
+                        </div>
+                    </div>
+                    <input type="submit" value="Log in" class="btn btn-login-primary">
+                </form>
+            </div>
+            <!-- Links at the bottom of the login section -->
+            <div class="login-links">
+                <span><a href="#">Forgot password?</a> · <a href="{% url 'user:register' %}">Sign up for Twitter</a></span>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

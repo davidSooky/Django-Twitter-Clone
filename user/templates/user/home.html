@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load custom_tags %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+{% block content %}
+<main id="posts-section">
+    <div class="posts-header">
+        <p class="text-middle clear mt-1 ml-1">Home</p>
+    </div>
+    <!-- Form to create new Post/Tweet -->
+    <form method="POST" class="form login-form">
+        {% csrf_token %}
+        <div class="post-container">
+            <div class="user-photo"><a href="{{ user.profile_pic.url }}"></a><img src="{{ user.profile_pic.url }}" alt="Not found"></a></div>
+            <div class="form-field clear tweet">
+                <div class="input-field mt-1">
+                    <span>{{ form.title.label }}</span>
+                    {{form.title}}
+                </div>
+            </div>
+            <div class="clear"></div>
+            <input type="submit" value="Tweet" class="btn btn-login-secondary btn-inline" style="justify-self: end;">
+        </div>
+    </form>
+    <div class="div" style="height:10px; background-color:var(--primary-color)"></div>
+    <!-- Post of current user + posts of followed users -->
+    <div class="posts" data-profile="{{ user.id }}">
+        {% if posts %}
+            {% for post in posts %}
+            <div class="post-container">
+                <div class="user-photo"><a href="{{ post.owner.profile_pic.url }}"></a><img src="{{ post.owner.profile_pic.url }}" alt="Not found"></a></div>
+                <div class="post-card">
+                    <div class="post-title"><a href="{{post.owner.get_absolute_url}}"><strong>{{ post.owner }}</strong></a><span> @{{post.username}} · {{ post.created_on|date:"M j, Y" }}<i class="fas fa-ellipsis-h flex-row"></i></span>
+                    </div>
+                    {% if post.title != "0" %}
+                        <div class="post-title mt-1">{{ post.title }}</div>
+                    {% endif %}
+                    <div class="post-content">{{ post.content }}
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam, aut. Illum exercitationem minus neque consequatur eius expedita libero. Maiores, repudiandae.</p>
+                    </div>
+                    <div class="post-actions" data-id="{{ post.id }}" data-owner="{{ post.owner.id }}">
+                        <a href="{{ post.get_absolute_url }}" class="social-icon"><i class="far fa-comment clear flex-row" {% if post.num_of_comments %}data-number="{{ post.num_of_comments|format_number }}"{% endif %}></i></a>
+                        <a href="#" class="social-icon"><i class="fas fa-retweet clear flex-row"></i></a>
+                        {% already_liked post.id request.user.id as already_liked %}
+                        {% if already_liked %}
+                            <a href="#" class="social-icon"><i class="fas fa-heart clear flex-row liked" {% if post.num_of_likes %}data-number="{{ post.num_of_likes|format_number }}"{% endif %}></i></a>
+                        {% else %}
+                            <a href="#" class="social-icon"><i class="far fa-heart clear flex-row" {% if post.num_of_likes %}data-number="{{ post.num_of_likes|format_number }}"{% endif %}></i></a>
+                        {% endif %}
+                        <a href="#" class="social-icon"><i class="fas fa-share-square flex-row"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="grid-center mt-1" style="border: 1px solid var(--border-color);">
+                <h3 class="text-middle clear mt-1 mb-1">Share your first tweet with us and start following somebody.</h3>
+                <a href="#" class="btn btn-login-secondary btn-inline">Tweet</a>
+            </div>
+        {% endif %}
+</main>
+{% endblock %}
+
+<!-- Javascript code integration -->
+{% block javascript %}
+    <script src="{% static 'js/UIControl.js' %}"></script>
+    <script src="{% static 'js/dataCtrl.js' %}" type="module"></script>
+{% endblock %}

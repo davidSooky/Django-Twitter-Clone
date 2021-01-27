@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Twitter. It’s what’s happening / Twitter</title>
+</head>
+<body>
+    
+    <div id="myModal" class="inactive">
+        <div class="modalCard">
+            <div class="modalContent">
+                <div class="modal-header">
+                    <span class="closeBtn">&times;</span>
+                </div>
+                <div class="modal-content">
+                    <div class="login-header clear">
+                        <div class="login-icon"><i class="fab fa-twitter fa-2x"></i></div>
+                        <h2>Sign up for Twitter</h2>
+                    </div>
+                    <div class="form login-form mt-5">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {% for field in register_form.visible_fields %}
+                                <div class="form-field">
+                                    <div class="input-field">
+                                        <span>{{ field.label }}</span>
+                                        {{ field }}
+                                    </div>
+                                    {{ field.errors }}
+                                </div>
+                            {% endfor %}
+                            {% for error in form.non_field_errors %}
+                                <div class="messages messages-warning"><h3>{{ error }}</h3></div> 
+                            {% endfor %}
+                            <input type="submit" value="Sign up" class="btn btn-login-primary">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-container">
+        <section class="recommendations">
+            <div class="section-container">
+                <div class="text-middle"><i class="fas fa-search"></i>Follow your interests.</div>
+                <div class="text-middle"><i class="fas fa-user-friends"></i><span>Hear what people are talking about.</span></div>
+                <div class="text-middle"><i class="fas fa-comment"></i>Join the conversation.</div>
+            </div>
+        </section>
+        <section class="login-section">
+            <div class="login-wrapper">
+                <div class="form login-form">
+                    <form method="POST" class="flex-row">
+                        {% csrf_token %}
+                        {% for field in login_form.visible_fields %}
+                            <div class="form-field mr-1">
+                                <div class="input-field">
+                                    <span>{{ field.label }}</span>
+                                    {{ field }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <input type="submit" value="Log in" class="btn btn-login-secondary btn-inline">
+                    </form>
+                </div>
+                <div class="login-links clear">
+                    <a class="text-small" href="#">Forgot password?</a>
+                </div>
+            </div>
+            <div class="section-container">
+                <div class="login-icon"><i class="fab fa-twitter fa-2x"></i></div>
+                <h1 class="text-lead">See what’s happening in the world right now</h1>
+                <h4 class="text-medium">Join Twitter today.</h4>
+                <a href="#" class="btn btn-login-primary" id="myModalBtn">Sign up</a>
+                <a href="{% url 'user:login' %}" class="btn btn-login-secondary">Log in</a>
+            </div>
+        </section>
+    </div>
+    <div class="footer-container">{% include "footer.html" %}</div>
+
+    <script src="{% static 'js/modalCtrl.js' %}"></script>
+
+    <!-- Prevents modal from closing, so user can see what is wrong during registration -->
+    <script>
+        {% if register_form.errors %}
+            document.getElementById("myModal").classList.remove("inactive"); 
+        {% endif %}
+    </script>
+</body>
+</html>

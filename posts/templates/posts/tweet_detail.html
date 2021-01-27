@@ -1,0 +1,32 @@
+{% extends "user/profile.html" %}
+
+{% block title %}Comments{% endblock %}
+
+    {% block comments %}
+    <!-- Show comments for the selected Post -->
+        {% for comment in comments %}
+            <div class="post-container comment">
+                <div class="user-photo"><a href="{{ comment.owner.profile_pic.url }}"><img src="{{ comment.owner.profile_pic.url }}" alt="Not found"></a></div>
+                <div class="post-card">
+                    <div class="post-title"><a href="{{comment.owner.get_absolute_url}}"><strong>{{ comment.owner }}</strong></a><span> @{{comment.username}} · {{ comment.commented_on|date:"M j, Y" }}<i class="fas fa-ellipsis-h flex-row"></i></span>
+                    </div>
+                    <div class="comment-content">
+                        {{ comment.content }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="form login-form mt-1">
+            <!-- Form to create new comments for the selected Post -->
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-field comment">
+                    <div class="input-field">
+                        <span>{{ form.content.label }}</span>
+                        {{form.content}}
+                    </div>
+                </div>
+                <input type="submit" value="Comment" class="btn btn-login-secondary">
+            </form>
+        </div>
+    {% endblock %}

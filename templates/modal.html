@@ -1,0 +1,42 @@
+<div id="myModal" class="inactive">
+    <div class="modalCard">
+        <div class="modalContent">
+            <div class="modal-header">
+                <h1 class="text-lead clear">Profile settings</h1>
+                <span class="closeBtn">&times;</span>
+            </div>
+            <div class="modal-content">
+                <form method="POST" enctype="multipart/form-data" class="form login-form" style="width: 90%; margin: 0 auto;">
+                    {% csrf_token %}
+                    <div class="cover-img-field mt-1 mb-6">
+                        <label for="cover-pic" style="background-image: url('{{user.cover_pic.url}}')"></label>
+                        {{form.cover_pic}}
+                        <div class="profile-img-field">
+                        <label for="profile-pic" style="background-image: url('{{user.profile_pic.url}}')"></label>
+                        {{form.profile_pic}}
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="input-field">
+                            <span>{{ form.first_name.label }}</span>
+                            {{ form.first_name }}
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="input-field">
+                            <span>{{ form.last_name.label }}</span>
+                            {{ form.last_name }}
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="input-field">
+                            <span>{{ form.email.label }}</span>
+                            {{ form.email }}
+                        </div>
+                    </div>
+                    <input type="submit" value="Save changes" class="btn btn-login-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
