@@ -1,4 +1,4 @@
-from .serializers import PostSerializer, LikeSerializer, FollowerSerializer, PostDetailSerializer
+from .serializers import PostSerializer, LikeSerializer, FollowerSerializer, PostDetailSerializer, ProfileSerializer
 from posts.models import Post, Like
 from user.models import Profile, Follower
 from user.utils import get_followed_users
@@ -27,6 +27,13 @@ def followed_users_posts(request, pk):
     user = Profile.objects.get(pk=pk)
     posts = Post.objects.filter(owner_id__in=get_followed_users(user)).order_by("-created_on")
     serializer = PostDetailSerializer(posts, many=True, context = {'request':request})
+
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def users(request):
+    profiles = Profile.objects.all()
+    serializer = ProfileSerializer(profiles, many=True)
 
     return Response(serializer.data)
 

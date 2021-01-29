@@ -9,7 +9,7 @@
 {% include "modal.html" %}
 
     <!-- Main middle section of the page, diplaying posts, comments, and info about users profile -->
-    <main id="posts-section">
+    <main id="posts-section" data-currentprofile="{{ user.id }}">
         <!-- Check whether the profile is already followed by the logged in user -->
         {% if request.resolver_match.url_name == "profile" %}
             {% is_followed profile.id user.id as is_followed %}
@@ -92,7 +92,7 @@
                 <div class="post-container">
                     <div class="user-photo"><a href="{{ post.owner.profile_pic.url }}"><img src="{{ post.owner.profile_pic.url }}" alt="Not found"></a></div>
                     <div class="post-card">
-                        <div class="post-title"><a href="{{post.owner.get_absolute_url}}"><strong>{{ post.owner }}</strong></a><span> @{{post.username}} · {{ post.created_on|date:"M j, Y" }}<i class="fas fa-ellipsis-h flex-row"></i></span>
+                        <div class="post-title"><a href="{{ post.owner.get_absolute_url }}"><strong>{{ post.owner }}</strong></a><span> @{{post.username}} · {{ post.created_on|date:"M j, Y" }}<i class="fas fa-ellipsis-h flex-row"></i></span>
                         </div>
                         {% if post.title != "0" %}
                             <div class="post-title">{{ post.title }}</div>
@@ -122,11 +122,6 @@
             {% block comments %} {% endblock %}
         </div>
     </main>
-    <aside class="search-section">
-        <!-- <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis atque quaerat molestiae. Doloremque exercitationem iure, debitis vero eaque earum vitae.</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis atque quaerat molestiae. Doloremque exercitationem iure, debitis vero eaque earum vitae.</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis atque quaerat molestiae. Doloremque exercitationem iure, debitis vero eaque earum vitae.</h1> -->
-    </aside>
 {% endblock %}
 
 

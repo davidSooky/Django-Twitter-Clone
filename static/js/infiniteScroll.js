@@ -1,8 +1,11 @@
 
 // Function to get posts asynchronously
-export async function fetchPosts(url, range) {
+export async function fetchPosts(url, range = null) {
     const data = await (await fetch(url)).json();
-    return data.slice(range, range + 10);
+    if(range) {
+        return data.slice(range, range + 10);
+    }
+    return data
 };
 
 // Format posts date of creation, since Django template filters can not be passed by Javascript
@@ -68,3 +71,25 @@ export function buildPostContent(data, container) {
     // Add everything to the Post container
     container.innerHTML += html;
 };
+
+// Build container for search results
+export function buildSearchResults(data, container, input) {
+    let html = "";
+    data.map((item) => {
+        let name = `${item.first_name} ${item.last_name}`;
+        if (name.toLowerCase().includes(input.toLowerCase()) || item.username.includes(input.toLowerCase())) {
+        html +=
+            `
+                <li class="result-container flex-row">
+                    <img src=${item.profile_pic}>
+                    <div>
+                        <a href="${item.absolute_url}">${name}</a>
+                        <p>@${item.username}</p>
+                    </div>
+                </li> 
+            `;
+        }
+    });
+    html = html ? html : "No results.";
+    container.innerHTML = html;
+}

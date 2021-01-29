@@ -65,9 +65,7 @@ def profile_view(request, username):
 @login_required(login_url="user:login")
 def home_view(request):
     user = Profile.objects.get(user=request.user)
-    # followed_users = [*user.following.all().values_list("follower_id", flat=True).distinct()]
-    # followed_users.append(user.id)
-    posts = Post.objects.filter(owner_id__in=get_followed_users(user)).order_by("-created_on")[:10]
+    posts = Post.objects.filter(owner_id__in=get_followed_users(user))[:10]
 
     if request.method == "POST":
         form = TweetForm(request.POST)
@@ -82,26 +80,6 @@ def home_view(request):
 
     context = {"form":form, "posts":posts, "user":user}
     return render(request, "user/home.html", context)
-
-# def login_register_view(request):
-#     if request.method == "POST":
-#         form = LoginForm(request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data["username"]
-#             password = form.cleaned_data["password"]
-#             user = authenticate(username=username, password=password)
-#             if user is not None:
-#                 login(request, user)
-#                 messages.success(request, "You have been succesfully logged in.")
-#                 return redirect("user:home")
-#             else:
-#                 messages.warning(request, "Username or password incorrect. Try again.")
-#         else:
-#             messages.warning(request, "Username or password incorrect. Try again.")
-#     else:
-#         form = LoginForm()
-#     context = {"form":form}
-#     return render(request, "register.html", context)
 
 def login_register_view(request):
     if request.method == "POST":

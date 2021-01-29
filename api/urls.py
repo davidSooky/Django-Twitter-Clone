@@ -3,6 +3,7 @@ from . import viewsets
 
 urlpatterns = [
     path("posts/", viewsets.post_all, name="posts"),
+    path("user/", viewsets.users, name="users"),
     path("user/<str:pk>/posts/", viewsets.users_posts, name="users_posts"),
     path("user/<str:pk>/followed_posts/", viewsets.followed_users_posts, name="followed_users_posts"),
     path("likes/create/", viewsets.create_like, name="create-like"),

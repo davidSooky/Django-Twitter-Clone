@@ -4,7 +4,7 @@
 
 {% block title %}Home{% endblock %}
 {% block content %}
-<main id="posts-section">
+<main id="posts-section" data-currentprofile="{{ user.id }}">
     <div class="posts-header">
         <p class="text-middle clear mt-1 ml-1">Home</p>
     </div>
@@ -60,8 +60,6 @@
             </div>
         {% endif %}
 </main>
-
-<aside class="search-section"></aside>
 {% endblock %}
 
 <!-- Javascript code integration -->

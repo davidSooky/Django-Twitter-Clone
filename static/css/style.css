@@ -15,6 +15,7 @@
     --border-color: rgb(110, 119, 134);
     --like-color: rgb(235, 17, 53);
     --comment-color: rgb(44, 235, 72);
+    --search-color: rgb(33, 50, 66);
 }
 
 /* Styling */
@@ -54,6 +55,7 @@ body {
 
 .search-section {
     flex: 1;
+    padding: 5px 20px;
     /* left: 70%; */
 }
 
@@ -571,6 +573,101 @@ body {
 .user-info a:hover {
     text-decoration: underline;
 }
+
+/* Search field, search results */
+.search-field {
+    color: var(--border-color);
+    background-color: var(--search-color);
+    width: 75%;
+    height: 40px;
+    padding: 5px;
+    position: sticky;
+    top: 5px;
+    border-radius: 300px;
+}
+
+.search-field:focus-within {
+    border: 1px solid var(--primary-color);
+    background-color: transparent;
+    color: var(--primary-color);
+}
+
+.search-field i {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.search-field input[type="search"] {
+    color: var(--border-color);
+    width: 87%;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 5px;
+    margin-left: 40px;
+    line-height: 20px;
+}
+
+.results {
+    list-style: none;
+    color: var(--border-color);
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 95%;
+    left: 0;
+    background-color: var(--secondary-color);
+    width: 100%;
+    min-height: 150px;
+    overflow-y: auto;
+    margin-top: 10px;
+    text-align: center;
+    padding: 5px;
+    transition: 0.2s ease;
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px 0px #ffffff;
+    z-index: 5;
+}
+
+.search-field input[type="search"]:focus ~ .results {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.results a {
+    text-decoration: none;
+    color: #333;
+}
+
+.result-container {
+    padding: 10px 5px;
+    display: block;
+}
+
+.result-container:hover {
+    background-color: rgb(110, 119, 134, 0.2);
+}
+
+.result-container a {
+    color: #fff;
+    display: block;
+}
+
+.result-container img {
+    width: 50px;
+    margin-right: 25px;
+    margin-left: -25px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.result-container:last-child {
+    border: none;
+}
+
 
 /* Messages formating */
 .messages {
