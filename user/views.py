@@ -11,7 +11,7 @@ from .models import Profile
 from posts.models import Post, Comment, Like
 from posts.forms import TweetForm
 from .forms import RegisterForm, LoginForm, ProfileForm
-from .utils import get_followed_users
+from .utils import get_followed_users, get_recommended_users
 
 
 # CBS for home page, lists Posts of followed users
@@ -66,6 +66,7 @@ def profile_view(request, username):
 def home_view(request):
     user = Profile.objects.get(user=request.user)
     posts = Post.objects.filter(owner_id__in=get_followed_users(user))[:10]
+    rec_users = get_recommended_users(user)
 
     if request.method == "POST":
         form = TweetForm(request.POST)
@@ -78,7 +79,7 @@ def home_view(request):
     else:
         form = TweetForm()
 
-    context = {"form":form, "posts":posts, "user":user}
+    context = {"form":form, "posts":posts, "user":user, "unfollowed_users":rec_users}
     return render(request, "user/home.html", context)
 
 def login_register_view(request):

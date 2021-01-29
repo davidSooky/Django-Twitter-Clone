@@ -18,7 +18,7 @@ function loadEventListeners() {
             // Check if the current page is the home page or the profile page, fetch posts accordingly
             if(document.querySelector("#myModal")) {
                 url = `http://127.0.0.1:8000/api/user/${currentProfileID}/posts/`;
-            } else {
+            } else{
                 url = `http://127.0.0.1:8000/api/user/${currentProfileID}/followed_posts/`;
             }
             fetchPosts(url, range)

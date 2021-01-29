@@ -36,15 +36,9 @@ body {
 }
 
 #right-section {
-    /* position: fixed;
-    top: 0;
-    left: 0; */
     height: 100vh;
-    /* padding-left: 100px; */
     position: relative;
-    /* width: calc(100vw - 700px); */
-    /* width: 370px; */
-    flex: 1;
+    flex: 1 0 0px;
 }
 
 .fixed {
@@ -54,17 +48,12 @@ body {
 }
 
 .search-section {
-    flex: 1;
-    padding: 5px 20px;
-    /* left: 70%; */
+    flex: 1 0 0px;
+    padding: 0 20px;
 }
 
 #right-section ul {
     list-style: none;
-    /* margin: 0 auto; */
-    /* width: calc(1000px - 80vw); */
-    /* max-width: 100%;
-    min-width: 50%; */
 }
 
 #right-section a{
@@ -581,8 +570,7 @@ body {
     width: 75%;
     height: 40px;
     padding: 5px;
-    position: sticky;
-    top: 5px;
+    position: relative;
     border-radius: 300px;
 }
 
@@ -668,6 +656,49 @@ body {
     border: none;
 }
 
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--search-color);
+    border-radius: 10px;
+    margin-top: 15px;
+    width: 75%;
+}
+
+.card img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.card .card-content {
+    border-top: 1px solid var(--border-color);
+    place-items: center;
+    padding: 5px 10px;
+    display: grid;
+    transition: 0.2s ease;
+    grid-template-columns: 1fr 2fr 1fr;
+}
+
+.card .card-content:hover {
+    cursor: pointer;
+    background-color: rgb(110, 119, 134, 0.2);
+}
+
+.card .card-content .profile-link {
+    text-decoration: none;
+    font-weight: bold;
+    color: #fff;
+}
+
+.card .card-content .profile-link:hover {
+    text-decoration: underline;
+}
+
+.card .card-content p {
+    color: var(--border-color);
+    font-size: 15px;
+}
 
 /* Messages formating */
 .messages {

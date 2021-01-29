@@ -1,4 +1,4 @@
-const container = document.querySelector(".posts");
+export const container = document.querySelector(".posts");
 const followBtn = document.querySelectorAll("#btn-follow");
 
 loadEventListeners();
@@ -94,7 +94,7 @@ const createLike = async (url, owner_id, post_id) => {
 };
 
 // Asynchronous funtion to create Follower object
-const createFollower = async (url, id_1, id_2) => {
+export const createFollower = async (url, id_1, id_2) => {
     await fetch(url, {
         method: "POST",
         headers: {
@@ -109,7 +109,7 @@ const createFollower = async (url, id_1, id_2) => {
 };
 
 // Asynchronous funtion to delete Like object or Follower object
-const deleteObject = async (url) => {
+export const deleteObject = async (url) => {
     await fetch(url, {
         method: "DELETE",
         headers: {
