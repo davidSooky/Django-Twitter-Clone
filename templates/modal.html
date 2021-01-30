@@ -30,8 +30,26 @@
                     </div>
                     <div class="form-field">
                         <div class="input-field">
+                            <span>{{ form.description.label }}</span>
+                            {{ form.description }}
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="input-field">
                             <span>{{ form.email.label }}</span>
                             {{ form.email }}
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="input-field">
+                            <span>{{ form.country.label }}</span>
+                            {{ form.country }}
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="input-field">
+                            <span>{{ form.dob.label }}</span>
+                            {{ form.dob }}
                         </div>
                     </div>
                     <input type="submit" value="Save changes" class="btn btn-login-primary">

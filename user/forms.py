@@ -31,13 +31,17 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         exclude = ["user"]
+        labels = {"dob": "Date of birth"}
         widgets = {
+            # Picture fields are formated in such way, that the file picker is not visible, clicking on the pictures opens the file picker
             "cover_pic":forms.FileInput(attrs={"type":"file", "class":"cover-pic", "name":"cover-pic", "id":"cover-pic", "hidden":"true"}),
             "profile_pic":forms.FileInput(attrs={"type":"file", "class":"profile-pic", "name":"profile-pic", "id":"profile-pic", "hidden":"true"}),
-            "email":forms.EmailInput(attrs={"autocomplete":"off"})
+            "description":forms.TextInput(attrs={"placeholder":"Say something about yourself..."}),
+            "dob":forms.DateInput(attrs={"type":"date"})
         }
     
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     for field in self.fields:
-    #         self.fields[field].attrs.autocomplete = "off"
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            if not field in ["dob", "cover_pic", "profile_pic"]: 
+                self.fields[field].widget.attrs["autocomplete"] = "off"

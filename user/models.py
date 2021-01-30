@@ -19,12 +19,12 @@ class Profile(models.Model):
     cover_pic = models.ImageField(default="images/default_cover.jpg", upload_to=get_cover_path_name)
     first_name = models.CharField(max_length=40, blank=True)
     last_name = models.CharField(max_length=40, blank=True)
-    # description = models.CharField(max_length=300, blank=True, null=True)
-    # country = models.CharField(max_length=50, blank=True, null=True)
+    description = models.CharField(max_length=300, blank=True, null=True)
+    country = models.CharField(max_length=50, blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now=True)
     email = models.EmailField(max_length=100)
-    # dob = models.DateField(blank=True, null=True)
+    dob = models.DateField(blank=True, null=True)
 
     def get_absolute_url(self):
         return reverse("user:profile", kwargs={"username":self.user})
