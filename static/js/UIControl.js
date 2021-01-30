@@ -16,7 +16,32 @@ function loadEventListeners() {
             });
         });
     }
+    container.addEventListener("click", (e) => {
+        showDeletePost(e);
+    });
+    document.body.addEventListener("click", (e) => {hideDeletePost(e);});
 }
+
+// If user want to delete the post, show the button
+const showDeletePost = (e) => {
+    const userID = container.dataset.profile;
+    if (e.target.classList.contains("fa-ellipsis-h")) {
+        const ownerID = e.target.parentElement.parentElement.parentElement.lastElementChild.dataset.owner;
+        if(userID == ownerID) {
+            e.target.parentElement.nextElementSibling.classList.add("show");
+        }
+    }
+};
+
+// Hide post delete, button
+const hideDeletePost = (e) => {
+    if (!e.target.classList.contains("fa-ellipsis-h")) {
+        const deletePost = document.querySelector(".delete-post.show");
+        if(deletePost) {
+            deletePost.classList.remove("show");
+        }
+    }
+};
 
 // Function for managing likes, creates or deletes Like model object. Updates UI.
 const manageLikes = (e) => {

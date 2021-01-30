@@ -1,3 +1,4 @@
+const profileID = document.querySelector(".posts").dataset.profile;
 
 // Function to get posts asynchronously
 export async function fetchPosts(url, range = null) {
@@ -34,8 +35,13 @@ export function buildPostContent(data, container) {
                 <div class="user-photo"><a href="${item.profile.profile_pic}"></a><img src="${item.profile.profile_pic}" alt="Not found"></a></div>
                 <div class="post-card">
                 <div class="post-title"><a href="${item.profile.absolute_url}"><strong>${item.profile.first_name} ${item.profile.last_name}
-                </strong></a><span> @${item.profile.username} · ${formatDate(item.created_on)}<i class="fas fa-ellipsis-h flex-row"></i></span>
-                </div>`
+                </strong></a><span> @${item.profile.username} · ${formatDate(item.created_on)}<i class="fas fa-ellipsis-h flex-row"></i></span>`;
+                if (profileID == item.owner) {
+                    html += `<a href="/tweet/post/${item.id}/delete" class="delete-post">Delete post ?</a>`;
+                }
+                
+
+                html += `</div>`;
                 // Check if title is not null, otherwise do not show it
                 if(parseInt(item.title) != 0) {
                     html += `<div class="post-title mt-1">${item.title}</div>`;
@@ -77,7 +83,7 @@ export function buildSearchResults(data, container, input) {
     let html = "";
     data.map((item) => {
         let name = `${item.first_name} ${item.last_name}`;
-        if (name.toLowerCase().includes(input.toLowerCase()) || item.username.includes(input.toLowerCase())) {
+        if (name.toLowerCase().includes(input.toLowerCase()) || item.username.toLowerCase().includes(input.toLowerCase())) {
         html +=
             `
                 <li class="result-container flex-row">

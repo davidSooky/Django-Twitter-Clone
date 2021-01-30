@@ -31,3 +31,8 @@ def comment_view(request, pk):
         form = CommentForm()
     context = {"form":form, "user":user, "comments":comments, "post":post, "owner":owner, "unfollowed_users":rec_users}
     return render(request, "posts/tweet_detail.html", context)
+
+def delete_post(request, pk):
+    post = Post.objects.get(pk=pk)
+    post.delete()
+    return redirect ("user:home")
