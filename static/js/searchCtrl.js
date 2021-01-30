@@ -22,9 +22,9 @@ function buildContent(searchInput) {
 }
 
 const followBtn = document.querySelector(".card").querySelectorAll(".btn-follow");
+const userID = container.dataset.profile;
 followBtn.forEach(item => {
     item.addEventListener("click", (e) => {
-        const userID = container.dataset.profile;
         const profileID = e.target.parentElement.dataset.profile;
         let url;
         // Follow user
@@ -33,7 +33,7 @@ followBtn.forEach(item => {
             url = "http://127.0.0.1:8000/api/follower/create/";
             createFollower(url, userID, profileID)
                 .then(() => {
-                    // Update UI (increase number of followed people, change text of follow button)
+                    // Update UI (change text of follow button)
                     e.target.textContent = "Unfollow";
                 });
         } else {
@@ -42,7 +42,7 @@ followBtn.forEach(item => {
             url = url = `http://127.0.0.1:8000/api/follower/delete/${profileID}`;
             deleteObject(url)
                 .then(() => {
-                    // Update UI (decrease number of followed people, change text of follow button)
+                    // Update UI (change text of follow button)
                     e.target.textContent = "Follow";
                 });
         }

@@ -1,31 +1,32 @@
-{% load static %}
-
-<aside class="search-section">
-  <div class="posts-header" style="border:none">
-    <div class="search-field">
-        <i class="fas fa-search"></i>
-        <input type="search" placeholder="Search Twitter" class="search-input">
-        <ul class="results">
-          <p>Try searching for people.</p>
+<!-- Right sidebar used in multiple templates -->
+<aside id="right-section">
+    <div class="fixed">
+        <ul>
+            <li><a href="{% url 'user:home' %}"><i class="fab fa-twitter clear flex-row"></i></a></li>
+            {% if request.user.is_authenticated %}
+                <li><a href="{% url 'user:home' %}" {% if request.resolver_match.url_name == "home" %}class="current"{% endif %}><i class="fas fa-home"></i>Home</a></li>
+                <li><a href="#"><i class="fas fa-hashtag"></i>Explore</a></li>
+                <li><a href="#"><i class="far fa-bell"></i>Notifications</a></li>
+                <li><a href="#"><i class="far fa-envelope"></i>Messages</a></li>
+                <li><a href="#"><i class="far fa-bookmark"></i>Bookmarks</a></li>
+                <li><a href="#"><i class="far fa-list-alt"></i>Lists</a></li>
+                <li><a href="{% url 'user:profile' request.user.username %}" {% if request.resolver_match.url_name == "profile" %}class="current"{% endif %}><i class="fas fa-user"></i>Profile</a></li>
+                <li><a href="{% url 'user:logout' %}"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+                <li><a href="{% url 'user:home' %}" class="btn btn-login-primary">Tweet</a></li>
+            {% endif %}
         </ul>
     </div>
-  </div>
-  {% if unfollowed_users %}
-  <div class="card">
-    <h3 class="text-middle clear mt-1 ml-1 mb-1">You might like</h3>
-    {% for user in unfollowed_users %}
-      <div class="card-content" data-profile="{{ user.id }}">
-        <img src="{{ user.profile_pic.url }}" alt="Not found">
-        <div style="justify-self: left"> 
-          <a href="{{ user.get_absolute_url }}" class="profile-link">{{ user }}</a>
-          <p>@{{ user.user.username }}</p>
-        </div>
-        <a href="#" class="btn btn-login-secondary btn-follow top mt-1" id="btn-follow">Follow</a>
-      </div>
-    {% endfor %}
-  </div>
-  {% endif %}
 </aside>
 
-<script src="{% static 'js/searchCtrl.js' %}" type="module" defer></script>
+<!-- Javascript to set active link on the sidebar -->
+<script defer>
+    const navbar = document.querySelector("#right-section");
+    const listItems = navbar.querySelectorAll("a");
 
+    listItems.forEach(item => {
+        item.addEventListener("click", e => {
+            listItems.forEach(item => {item.classList.remove("current");})
+            e.target.classList.add("current");
+        });
+    });
+</script>

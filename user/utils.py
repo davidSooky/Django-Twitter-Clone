@@ -1,10 +1,10 @@
 from .models import Profile
-from random import choice
+# from random import choice
 
 def get_followed_users(profile):
     '''
     Function to get profile_ID of all the followed users
-    plust the currently logged in user:
+    plus the currently logged in user:
     params:
         profile: profile of currently logged in user
     '''
@@ -14,8 +14,7 @@ def get_followed_users(profile):
 
 def get_recommended_users(profile):
     '''
-    Function to get profile_ID of all the followed users
-    plust the currently logged in user:
+    Function to get three non_followed user to recommend for current user
     params:
         profile: profile of currently logged in user
     '''
@@ -27,7 +26,6 @@ def get_recommended_users(profile):
     else:
         users = []
         while len(users) < 3:
-            user = choice(non_followed_users)
-            if user not in users:
-                users.append(user)
+            user = non_followed_users.pop()
+            users.append(user)
         return users

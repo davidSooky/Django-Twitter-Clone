@@ -14,12 +14,12 @@
     <!-- Main content -->
     <div class="main-container">
         <!-- Right sidebar insertion -->
-        {% include "right_sidebar.html" %}
+        {% include "left_sidebar.html" %}
         
         {% block content %}
         {% endblock %}
 
-        {% include "left_sidebar.html" %}
+        {% include "right_sidebar.html" %}
     </div>
     <!-- JS content -->
     {% block javascript %}

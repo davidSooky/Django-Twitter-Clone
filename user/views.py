@@ -13,39 +13,11 @@ from posts.forms import TweetForm
 from .forms import RegisterForm, LoginForm, ProfileForm
 from .utils import get_followed_users, get_recommended_users
 
-
-# CBS for home page, lists Posts of followed users
-# class ProfileView(LoginRequiredMixin, ListView):
-#     template_name = "user/profile.html"
-#     model = Post
-#     form_class = ProfileForm
-#     login_url = '/register/'
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         username = self.kwargs.get("username")
-#         profile = Profile.objects.get(user=self.request.user)
-#         user = Profile.objects.get(user__username=username)
-#         posts = Post.objects.filter(owner=user)
-#         context["posts"] = posts
-#         context["user"] = user
-#         context["profile"] = profile
-#         return context
-
-#     def get(self, request, *args, **kwargs):
-#         form = self.form_class()
-#         return render(request, self.template_name, {'form': form})
-
-#     def post(self, request, *args, **kwargs):
-#         form = form = self.form_class(self.request.POST)
-#         if form.is_valid():
-#             form.save()
-#         return redirect(self.template_name)
-
 @login_required(login_url="user:login")
 def profile_view(request, username):
     try:
         profile = Profile.objects.get(user=request.user)
+        rec_users = get_recommended_users(profile)
         user = Profile.objects.get(user__username=username)
         posts = Post.objects.filter(owner=user)[:10]
     except profile.DoesNotExist or user.DoesNotExist:
@@ -59,7 +31,7 @@ def profile_view(request, username):
         else:
             form = ProfileForm(instance=user)
 
-    context = {"profile":profile, "user":user, "posts":posts, "form":form}
+    context = {"profile":profile, "user":user, "posts":posts, "form":form, "unfollowed_users":rec_users}
     return render(request, "user/profile.html", context)
 
 @login_required(login_url="user:login")

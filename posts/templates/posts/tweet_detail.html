@@ -18,7 +18,7 @@
         {% endfor %}
         <div class="form login-form mt-1">
             <!-- Form to create new comments for the selected Post -->
-            <form method="POST">
+            <form method="POST" id="comment-form">
                 {% csrf_token %}
                 <div class="form-field comment">
                     <div class="input-field">

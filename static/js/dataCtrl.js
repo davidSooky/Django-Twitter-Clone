@@ -15,10 +15,13 @@ function loadEventListeners() {
         const {clientHeight, scrollTop, scrollHeight} = document.documentElement;
         if(clientHeight + scrollTop >=  scrollHeight - 5 && !eventRun) {
             eventRun = true;
-            // Check if the current page is the home page or the profile page, fetch posts accordingly
-            if(document.querySelector("#myModal")) {
+            // Check if the current page is the comment page, home page or the profile page, fetch posts accordingly (prevent if comment page)
+            if(document.querySelector("#comment-form")) {
+                return;
+            }
+            else if(document.querySelector("#myModal")) {
                 url = `http://127.0.0.1:8000/api/user/${currentProfileID}/posts/`;
-            } else{
+            } else if(document.querySelector("#post-form")){
                 url = `http://127.0.0.1:8000/api/user/${currentProfileID}/followed_posts/`;
             }
             fetchPosts(url, range)

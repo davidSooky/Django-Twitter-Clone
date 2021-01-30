@@ -663,6 +663,7 @@ body {
     border-radius: 10px;
     margin-top: 15px;
     width: 75%;
+    overflow: hidden;
 }
 
 .card img {

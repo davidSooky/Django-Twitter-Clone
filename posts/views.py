@@ -8,6 +8,7 @@ from django.views.generic.edit import FormMixin
 from .models import Post, Comment
 from user.models import Profile
 from .forms import CommentForm, TweetForm
+from user.utils import get_recommended_users
 
 
 # View to show comments of selected tweet
@@ -16,6 +17,7 @@ def comment_view(request, pk):
     user = Profile.objects.get(user=request.user)
     comments = Comment.objects.filter(post=pk)
     owner = Profile.objects.get(user__username=post.owner.user)
+    rec_users = get_recommended_users(user)
 
     if request.method == "POST":
         form = CommentForm(request.POST)
@@ -27,5 +29,5 @@ def comment_view(request, pk):
             return redirect("posts:comments", pk=pk)
     else:
         form = CommentForm()
-    context = {"form":form, "user":user, "comments":comments, "post":post, "owner":owner}
+    context = {"form":form, "user":user, "comments":comments, "post":post, "owner":owner, "unfollowed_users":rec_users}
     return render(request, "posts/tweet_detail.html", context)
