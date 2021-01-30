@@ -1,4 +1,5 @@
-const profileID = document.querySelector(".posts").dataset.profile;
+import { container } from "./UIControl.js"
+const profileID = container.dataset.profile;
 
 // Function to get posts asynchronously
 export async function fetchPosts(url, range = null) {
