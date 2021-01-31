@@ -1,13 +1,13 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+
 from .models import Profile
 
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(max_length=100, help_text="Enter a valid email address", widget=forms.EmailInput(attrs={"autocomplete":"off"}))
     username = forms.CharField(max_length=40, help_text="Enter a username", widget=forms.TextInput(attrs={"autocomplete":"off"}))
-    # dob = forms.DateField(widget=forms.DateInput(attrs={"type":"date"}))
     class Meta:
         model = User
         fields = ["username", "email", "password1", "password2"]
@@ -24,7 +24,6 @@ class RegisterForm(UserCreationForm):
 class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={"autocomplete":"off", "id":"user"}))
     password = forms.CharField(widget=forms.PasswordInput())
-
 
 
 class ProfileForm(forms.ModelForm):
@@ -45,3 +44,7 @@ class ProfileForm(forms.ModelForm):
         for field in self.fields:
             if not field in ["dob", "cover_pic", "profile_pic"]: 
                 self.fields[field].widget.attrs["autocomplete"] = "off"
+
+class ProfileRegisterForm(ProfileForm):
+    class Meta(ProfileForm.Meta):
+        exclude = ["user", "cover_pic", "profile_pic", "description", "country"]

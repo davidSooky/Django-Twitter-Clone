@@ -1,8 +1,8 @@
 import { fetchPosts, buildPostContent } from "./infiniteScroll.js"
+import { container } from "./UICtrl.js"
 
 // Get current profile ID to determine, which posts to fetch for infinite scrolling
 const postContainer = document.querySelector("#posts-section");
-const container = document.querySelector(".posts");
 const currentProfileID = postContainer.dataset.currentprofile;
 let range = 10;
 let eventRun = false;

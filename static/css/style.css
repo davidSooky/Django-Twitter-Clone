@@ -573,14 +573,20 @@ body {
     color: var(--primary-color);
 }
 
-.user-info p:nth-child(2), .user-info p:nth-child(3) {
-    color: var(--border-color);
-    font-weight: 300;
+.user-info .description {
+    color: #fff;
 }
 
-.user-info a {
+.user-info a, .user-info .username {
     text-decoration: none;
     color: var(--border-color);
+}
+
+.user-info .misc {
+    color: var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .user-info a strong {

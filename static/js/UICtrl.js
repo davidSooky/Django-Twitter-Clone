@@ -1,5 +1,5 @@
 export const container = document.querySelector(".posts");
-const followBtn = document.querySelectorAll("#btn-follow");
+const followBtn = document.querySelectorAll("#main-btn-follow");
 
 loadEventListeners();
 
