@@ -775,12 +775,37 @@ body {
     text-align: left;
 }
 
+/* Loader animation */
+#loader.inactive {
+    visibility: hidden;
+}
+
+#loader {
+    transition: 0.2s ease;
+    visibility: visible;
+}
+
+#loader i{
+    color: var(--primary-color);
+    animation: load 1s linear infinite;
+}
+
+@keyframes load {
+    from {
+        transform: scale(0);
+        opacity: 1;
+    }
+    to {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
 /* Modals */
 #myModal {
     position: absolute;
     width: 100%;
     height: 100%;
-    /* top:0; */
     left: 0;
     background-color: rgba(110, 119, 134, 0.7);
     z-index: 100;
