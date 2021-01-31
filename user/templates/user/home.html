@@ -37,9 +37,11 @@
                     {% if post.title != "0" %}
                         <div class="post-title mt-1">{{ post.title }}</div>
                     {% endif %}
-                    <div class="post-content">{{ post.content }}
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam, aut. Illum exercitationem minus neque consequatur eius expedita libero. Maiores, repudiandae.</p>
+                    {% if post.content %}
+                    <div class="post-content">
+                        {{ post.content }}
                     </div>
+                    {% endif %}
                     <div class="post-actions" data-id="{{ post.id }}" data-owner="{{ post.owner.id }}">
                         <a href="{{ post.get_absolute_url }}" class="social-icon"><i class="far fa-comment clear flex-row" {% if post.num_of_comments %}data-number="{{ post.num_of_comments|format_number }}"{% endif %}></i></a>
                         <a href="#" class="social-icon"><i class="fas fa-retweet clear flex-row"></i></a>
@@ -59,7 +61,8 @@
             </div> -->
         {% else %}
             <div class="grid-center mt-1" style="border: 1px solid var(--border-color);">
-                <h3 class="text-middle clear mt-1 mb-1">Share your first tweet with us and start following somebody.</h3>
+                <h3 class="text-middle clear mt-1 mb-1">You have not Tweeted yet.</h3>
+                <p class="clear mt-1 mb-1" style="color:var(--border-color)">When you post a Tweet, it will show up here.</p>
                 <a href="#" class="btn btn-login-secondary btn-inline">Tweet</a>
             </div>
         {% endif %}
@@ -70,6 +73,6 @@
 
 <!-- Javascript code integration -->
 {% block javascript %}
-    <script src="{% static 'js/UIControl.js' %}" type="module"></script>
+    <script src="{% static 'js/UICtrl.js' %}" type="module"></script>
     <script src="{% static 'js/dataCtrl.js' %}" type="module"></script>
 {% endblock %}

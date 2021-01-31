@@ -37,28 +37,30 @@ export function buildPostContent(data, container) {
                 <div class="post-card">
                 <div class="post-title"><a href="${item.profile.absolute_url}"><strong>${item.profile.first_name} ${item.profile.last_name}
                 </strong></a><span> @${item.profile.username} · ${formatDate(item.created_on)}<i class="fas fa-ellipsis-h flex-row"></i></span>`;
+                
                 if (profileID == item.owner) {
                     html += `<a href="/tweet/post/${item.id}/delete" class="delete-post">Delete post ?</a>`;
                 }
                 
-
                 html += `</div>`;
                 // Check if title is not null, otherwise do not show it
                 if(parseInt(item.title) != 0) {
                     html += `<div class="post-title mt-1">${item.title}</div>`;
                 } 
-                html += `
-                <div class="post-content">${item.content}
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam, aut. Illum exercitationem minus neque consequatur eius expedita libero. Maiores, repudiandae.</p>
-                </div>
-                <div class="post-actions" data-id="${item.id}" data-owner="${item.owner}"">`
+
+                if(item.content) {
+                html += `<div class="post-content">${item.content}</div>`  
+                }
+
+                html += `<div class="post-actions" data-id="${item.id}" data-owner="${item.owner}"">`;
                 // Check of number of comments is not null, otherwise do not show it
                 if(item.num_of_comments) {
                     html += `<a href="${item.absolute_url}" class="social-icon"><i class="far fa-comment clear flex-row" data-number="${item.num_of_comments}"></i></a>`;
                 } else {
-                    html += `<a href="${item.absolute_url}" class="social-icon"><i class="far fa-comment clear flex-row"></i></a>`
+                    html += `<a href="${item.absolute_url}" class="social-icon"><i class="far fa-comment clear flex-row"></i></a>`;
                 }
                 html += `<a href="#" class="social-icon"><i class="fas fa-retweet clear flex-row"></i></a>`;
+
                 // Check of number of likes is not null and if post has been already liked by the current user
                 if(item.already_liked) { 
                     html += `<a href="#" class="social-icon"><i class="fas fa-heart clear flex-row liked" data-number="${item.num_of_likes}"></i></a>`;

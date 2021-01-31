@@ -270,6 +270,20 @@ body {
     left: 0;
 }
 
+.login-form form {
+    overflow-x: hidden;
+}
+
+.login-form .slider {
+    transition: 0.2s ease;
+    display: flex;
+    width: 200%;
+}
+
+.login-form .slider .user-form, .login-form .slider .profile-form {
+    width: 50%;
+}
+
 /* Footer styling */
 
 #main-footer {
@@ -573,14 +587,20 @@ body {
     color: var(--primary-color);
 }
 
-.user-info p:nth-child(2), .user-info p:nth-child(3) {
-    color: var(--border-color);
-    font-weight: 300;
+.user-info .description {
+    color: #fff;
 }
 
-.user-info a {
+.user-info a, .user-info .username {
     text-decoration: none;
     color: var(--border-color);
+}
+
+.user-info .misc {
+    color: var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .user-info a strong {
@@ -787,7 +807,7 @@ body {
     width: 100%;
     height: 100%;
     left: 0;
-    background-color: rgba(78, 166, 221, 0.7);
+    background-color: rgba(110, 119, 134, 0.7);
     z-index: 100;
     overflow-y: hidden;
     opacity: 1;
@@ -808,13 +828,20 @@ body {
     text-align: center;
     border-radius: 20px;
     padding: 20px;
+    padding-top: 0;
     margin: 20px auto;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 #myModal .modal-header {
+    padding: 10px 0;
     color: #fff;
-    height: 40px;
-    position: relative;
+    /* height: 60px; */
+    position: sticky;
+    top: 0;
+    background-color: var(--secondary-color);
+    z-index: 10;
     text-align: left;
 }
 

@@ -1,12 +1,14 @@
 import { fetchPosts, buildSearchResults } from "./infiniteScroll.js"
-import { createFollower, deleteObject, container } from "./UIControl.js"
+import { createFollower, deleteObject, container } from "./UICtrl.js"
 
 const searchField = document.querySelector(".search-input");
 
+// Add eventlistener to search input
 searchField.addEventListener("keyup", (e) => {
     buildContent(e.target.value)
 });
 
+// Show results of search
 function buildContent(searchInput) {
     const resultsCont = document.querySelector(".results");
     let url = "http://127.0.0.1:8000/api/user/";
@@ -21,6 +23,7 @@ function buildContent(searchInput) {
     }
 }
 
+// Follow a user by clicking the follow button on the right sidebar
 const followBtn = document.querySelector(".card").querySelectorAll(".btn-follow");
 const userID = container.dataset.profile;
 followBtn.forEach(item => {

@@ -1,5 +1,5 @@
 from .models import Profile
-# from random import choice
+from random import choice
 
 def get_followed_users(profile):
     '''
@@ -26,6 +26,7 @@ def get_recommended_users(profile):
     else:
         users = []
         while len(users) < 3:
-            user = non_followed_users.pop()
-            users.append(user)
+            user = choice(non_followed_users)
+            if user not in users:
+                users.append(user)
         return users
