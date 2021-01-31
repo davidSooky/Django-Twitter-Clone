@@ -270,6 +270,20 @@ body {
     left: 0;
 }
 
+.login-form form {
+    overflow-x: hidden;
+}
+
+.login-form .slider {
+    transition: 0.2s ease;
+    display: flex;
+    width: 200%;
+}
+
+.login-form .slider .user-form, .login-form .slider .profile-form {
+    width: 50%;
+}
+
 /* Footer styling */
 
 #main-footer {
@@ -791,13 +805,14 @@ body {
     padding: 20px;
     padding-top: 0;
     margin: 20px auto;
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
 #myModal .modal-header {
-    padding-top: 10px;
+    padding: 10px 0;
     color: #fff;
-    height: 60px;
+    /* height: 60px; */
     position: sticky;
     top: 0;
     background-color: var(--secondary-color);

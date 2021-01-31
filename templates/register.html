@@ -14,29 +14,41 @@
         <div class="modalCard">
             <div class="modalContent">
                 <div class="modal-header">
+                    <i class="fab fa-twitter fa-2x clear mb-1"></i>
+                    <h2>Sign up for Twitter</h2>
                     <span class="closeBtn">&times;</span>
                 </div>
                 <div class="modal-content">
-                    <div class="login-header clear">
-                        <div class="login-icon"><i class="fab fa-twitter fa-2x"></i></div>
-                        <h2>Sign up for Twitter</h2>
-                    </div>
                     <div class="form login-form mt-5">
                         <form method="POST">
                             {% csrf_token %}
-                            {% for field in register_form.visible_fields %}
-                                <div class="form-field">
-                                    <div class="input-field">
-                                        <span>{{ field.label }}</span>
-                                        {{ field }}
+                            <div class="slider">
+                                <div class="user-form">
+                                {% for field in register_form.visible_fields %}
+                                    <div class="form-field">
+                                        <div class="input-field">
+                                            <span>{{ field.label }}</span>
+                                            {{ field }}
+                                        </div>
+                                        {{ field.errors }}
                                     </div>
-                                    {{ field.errors }}
+                                {% endfor %}
+                                <a href="#" class="btn btn-login-secondary" id="next-button">Next</a>
                                 </div>
-                            {% endfor %}
-                            {% for error in form.non_field_errors %}
-                                <div class="messages messages-warning"><h3>{{ error }}</h3></div> 
-                            {% endfor %}
-                            <input type="submit" value="Sign up" class="btn btn-login-primary">
+                                <div class="profile-form">
+                                {% for field in profile_form.visible_fields %}
+                                    <div class="form-field">
+                                        <div class="input-field">
+                                            <span>{{ field.label }}</span>
+                                            {{ field }}
+                                        </div>
+                                        {{ field.errors }}
+                                    </div>
+                                {% endfor %} 
+                                <input type="submit" value="Sign up" class="btn btn-login-primary">
+                                <a href="#" class="btn btn-login-secondary" id="prev-button">Previous</a>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -89,7 +101,23 @@
     <script>
         {% if register_form.errors %}
             document.getElementById("myModal").classList.remove("inactive"); 
+        {% elif profile_form.errors %}
+            document.getElementById("myModal").classList.remove("inactive"); 
         {% endif %}
+
+        const nextBtn = document.querySelector("#next-button");
+        const prevBtn = document.querySelector("#prev-button");
+        const slider = document.querySelector(".slider");
+
+        nextBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            slider.style.marginLeft = -100 + "%";
+        });
+
+        prevBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            slider.style.marginLeft = 0;
+        });
     </script>
 </body>
 </html>

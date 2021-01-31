@@ -4,6 +4,9 @@ from django import forms
 
 from .models import Profile
 
+# Third party imports
+from datetime import date, datetime
+
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(max_length=100, help_text="Enter a valid email address", widget=forms.EmailInput(attrs={"autocomplete":"off"}))
@@ -47,4 +50,14 @@ class ProfileForm(forms.ModelForm):
 
 class ProfileRegisterForm(ProfileForm):
     class Meta(ProfileForm.Meta):
-        exclude = ["user", "cover_pic", "profile_pic", "description", "country"]
+        exclude = ["user", "cover_pic", "profile_pic", "description", "country", "email"]
+    
+    def clean_dob(self):
+        dob = self.cleaned_data.get("dob")
+        if dob is not None:
+            dob = datetime.strptime(str(dob), "%Y-%m-%d").date()
+            today =  date.today()
+            age = today.year - dob.year
+            if age < 15:
+                raise forms.ValidationError("You have to be at least 15 years old to register.")
+        return dob

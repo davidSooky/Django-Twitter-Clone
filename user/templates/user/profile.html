@@ -106,8 +106,8 @@
                         {% if post.title != "0" %}
                             <div class="post-title">{{ post.title }}</div>
                         {% endif %}
-                        <div class="post-content">{{ post.content }}
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam, aut. Illum exercitationem minus neque consequatur eius expedita libero. Maiores, repudiandae.</p>
+                        <div class="post-content">
+                            {{ post.content }}  
                         </div>
                         <div class="post-actions" data-id="{{ post.id }}" data-owner="{{ post.owner.id }}">
                             <a href="{{ post.get_absolute_url }}" class="social-icon"><i class="far fa-comment clear flex-row" {% if post.num_of_comments %}data-number="{{ post.num_of_comments|format_number }}"{% endif %}></i></a>
