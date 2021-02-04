@@ -15,7 +15,6 @@ function loadEventListeners() {
         let url;
         const {clientHeight, scrollTop, scrollHeight} = document.documentElement;
         if(clientHeight + scrollTop >=  scrollHeight - 5 && !eventRun) {
-            loader.classList.remove("inactive");
             eventRun = true;
             // Check if the current page is the comment page, home page or the profile page, fetch posts accordingly (prevent if comment page)
             if(document.querySelector("#comment-form")) {
@@ -28,13 +27,16 @@ function loadEventListeners() {
             }
             fetchPosts(url, range)
                 .then((res) => {
-                    range += 10;
-                    eventRun = false;
-                    // Deactivate loader
-                    setTimeout(() => {
-                        buildPostContent(res, container);
-                        loader.classList.add("inactive");
-                    }, 1000);
+                    if(res[0]){
+                        loader.classList.remove("inactive");
+                        range += 10;
+                        eventRun = false;
+                        // Deactivate loader
+                        setTimeout(() => {
+                            buildPostContent(res, container);
+                            loader.classList.add("inactive");
+                        }, 1000);
+                    }
                 });
         }
     });

@@ -4,10 +4,10 @@ from .models import Post, Comment
 class TweetForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ["title", "content"]
+        fields = ["title", "tweet_image"]
         labels = {"title":""}
         widgets = {
-                    "content":forms.Textarea(attrs={"placeholder":"Enter your comment", "rows":"5"}),
+                    "tweet_image":forms.FileInput(attrs={"type":"file", "class":"tweet_img", "name":"tweet_img", "id":"tweet_img", "hidden":"true"}),
                     "title":forms.TextInput(attrs={"type":"text", "placeholder":"What´s happening ?", "autocomplete":"off"})
                 }
 

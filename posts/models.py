@@ -3,13 +3,16 @@ from user.models import Profile
 from django.contrib.auth.models import User
 from django.shortcuts import reverse
 
-# Create your models here.
+def get_image_path_name(instance, filename):
+    return "/".join(['images', instance.username, instance.id, filename])
+
 
 #Model for creating tweets
 class Post(models.Model):
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="tweets")
     title = models.CharField(max_length=400)
-    content = models.TextField(blank=True)
+    # content = models.TextField(blank=True, null=True)
+    tweet_image = models.ImageField(null=True, blank=True, upload_to=get_image_path_name)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -50,7 +53,7 @@ class Comment(models.Model):
         return self.owner.user.username
 
     class Meta:
-        ordering = ["-updated_on"]
+        ordering = ["-commented_on"]
 
 #Model for likes
 class Like(models.Model):

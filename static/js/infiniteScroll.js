@@ -1,4 +1,4 @@
-import { container } from "./UIControl.js"
+import { container } from "./UICtrl.js"
 const profileID = container.dataset.profile;
 
 // Function to get posts asynchronously
@@ -85,7 +85,8 @@ export function buildPostContent(data, container) {
 export function buildSearchResults(data, container, input) {
     let html = "";
     data.map((item) => {
-        let name = `${item.first_name} ${item.last_name}`;
+        let name = item.first_name ? `${item.first_name} ${item.last_name}` : item.username;
+        console.log(name)
         if (name.toLowerCase().includes(input.toLowerCase()) || item.username.toLowerCase().includes(input.toLowerCase())) {
         html +=
             `
