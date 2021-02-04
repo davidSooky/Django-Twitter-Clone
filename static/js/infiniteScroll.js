@@ -48,8 +48,9 @@ export function buildPostContent(data, container) {
                     html += `<div class="post-title mt-1">${item.title}</div>`;
                 } 
 
-                if(item.content) {
-                html += `<div class="post-content">${item.content}</div>`  
+                // Check if an image has been uploaded with the tweet
+                if(item.tweet_image) {
+                html += `<div class="post-content" style="background-image: url(${item.tweet_image})"></div>`  
                 }
 
                 html += `<div class="post-actions" data-id="${item.id}" data-owner="${item.owner}"">`;

@@ -58,7 +58,7 @@ class Profile(models.Model):
         if cover_img.width > 1500 or cover_img.height > 500:
             output_size = (1500, 500)
             cover_img.thumbnail(output_size)
-            cover_img.save(self.profile_pic.path)
+            cover_img.save(self.cover_pic.path)
 
 class Follower(models.Model):
     owner_id = models.ForeignKey(Profile, related_name="following", on_delete=models.CASCADE)

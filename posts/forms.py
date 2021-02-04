@@ -7,7 +7,7 @@ class TweetForm(forms.ModelForm):
         fields = ["title", "tweet_image"]
         labels = {"title":""}
         widgets = {
-                    "tweet_image":forms.FileInput(attrs={"type":"file", "class":"tweet_img", "name":"tweet_img", "id":"tweet_img", "hidden":"true"}),
+                    "tweet_image":forms.FileInput(attrs={"type":"file", "class":"tweet-img", "name":"tweet-img", "id":"tweet-img", "hidden":"true"}),
                     "title":forms.TextInput(attrs={"type":"text", "placeholder":"What´s happening ?", "autocomplete":"off"})
                 }
 

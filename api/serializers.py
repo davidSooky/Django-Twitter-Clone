@@ -35,7 +35,7 @@ class PostDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ["id", "title", "content", "owner", "num_of_likes", "num_of_comments", "absolute_url", "created_on", "already_liked", "profile"]
+        fields = ["id", "title", "tweet_image", "owner", "num_of_likes", "num_of_comments", "absolute_url", "created_on", "already_liked", "profile"]
 
     def get_already_liked(self, obj):
         user = self.context["request"].user

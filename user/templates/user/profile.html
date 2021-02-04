@@ -74,11 +74,10 @@
                             <a href="{% url 'posts:delete-post' post.id %}" class="delete-post">Delete post ?</a>
                         </div>
                         {% if post.title != "0" %}
-                            <div class="post-title">{{ post.title }}</div>
+                            <div class="post-title mt-1">{{ post.title }}</div>
                         {% endif %}
-                        {% if post.content %}
-                        <div class="post-content">
-                            {{ post.content }}
+                        {% if post.tweet_image %}
+                        <div class="post-content" style="background-image: url({{ post.tweet_image.url }})">
                         </div>
                         {% endif %}
                         <div class="post-actions" data-id="{{ post.id }}" data-owner="{{ post.owner.id }}">
@@ -104,11 +103,12 @@
                             {% if post.owner.id == user.id %}<a href="{% url 'posts:delete-post' post.id %}" class="delete-post">Delete post ?</a>{% endif %}
                         </div>
                         {% if post.title != "0" %}
-                            <div class="post-title">{{ post.title }}</div>
+                            <div class="post-title mt-1">{{ post.title }}</div>
                         {% endif %}
-                        <div class="post-content">
-                            {{ post.content }}  
+                        {% if post.tweet_image %}
+                        <div class="post-content" style="background-image: url({{ post.tweet_image.url }})">
                         </div>
+                        {% endif %}
                         <div class="post-actions" data-id="{{ post.id }}" data-owner="{{ post.owner.id }}">
                             <a href="{{ post.get_absolute_url }}" class="social-icon"><i class="far fa-comment clear flex-row" {% if post.num_of_comments %}data-number="{{ post.num_of_comments|format_number }}"{% endif %}></i></a>
                             <a href="#" class="social-icon"><i class="fas fa-retweet clear flex-row"></i></a>

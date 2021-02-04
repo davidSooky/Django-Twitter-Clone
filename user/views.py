@@ -40,7 +40,7 @@ def home_view(request):
     rec_users = get_recommended_users(user)
 
     if request.method == "POST":
-        form = TweetForm(request.POST)
+        form = TweetForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.owner = user

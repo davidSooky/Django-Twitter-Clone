@@ -3,15 +3,17 @@ from user.models import Profile
 from django.contrib.auth.models import User
 from django.shortcuts import reverse
 
+# Third party imports
+from PIL import Image
+
 def get_image_path_name(instance, filename):
-    return "/".join(['images', instance.username, instance.id, filename])
+    return "/".join(['images', instance.username, 'tweets', filename])
 
 
 #Model for creating tweets
 class Post(models.Model):
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="tweets")
-    title = models.CharField(max_length=400)
-    # content = models.TextField(blank=True, null=True)
+    title = models.CharField(null=True, blank=True, max_length=400)
     tweet_image = models.ImageField(null=True, blank=True, upload_to=get_image_path_name)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -36,6 +38,16 @@ class Post(models.Model):
 
     class Meta:
         ordering = ["-created_on"]
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.tweet_image:
+            tweet_img = Image.open(self.tweet_image.path)
+            if tweet_img.width > 700 or tweet_img.height > 700:
+                output_size = (700, 700)   
+                tweet_img.thumbnail(output_size)
+                tweet_img.save(self.tweet_image.path)
+
 
 #Model for creating comments
 class Comment(models.Model):

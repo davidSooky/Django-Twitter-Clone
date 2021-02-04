@@ -1,9 +1,14 @@
-from django.db.models.signals import pre_save
-from .models import Comment
+from django.db.models.signals import pre_delete
+from .models import Post
 
-def create_comment(sender, instance, **kwargs):
-    profile = kwargs.get("profile")
-    post = kwargs.get("post")
-    Comment.objects.create(owner=profile, post=post)
+# Signal to delete uploaded image, if tweet gets deleted
+def delete_tweet_image(sender, instance, **kwargs):
+    try:
+        tweet = sender.objects.get(pk=instance.pk)
+    except tweet.DoesNotExist:
+        return False
+    else:
+        tweet_img = tweet.tweet_image
+        tweet_img.delete()
 
-pre_save.connect(create_comment, sender=Comment)
+pre_delete.connect(delete_tweet_image, sender=Post)

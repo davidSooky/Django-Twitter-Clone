@@ -94,7 +94,6 @@ body {
 #posts-section {
     position: relative;
     border: 1px solid var(--border-color);
-    /* margin-left: 400px; */
     width: 600px;
     padding-bottom: 120px;
 }
@@ -197,6 +196,23 @@ body {
 
 .form-field.tweet:focus-within {
     box-shadow: none;
+}
+
+#tweet-img {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tweet-image label {
+    display: inline-block;
+    cursor: pointer;
+    transform-origin: center;
+    margin-top: 15px;
+    transition: 0.2s ease;
+}
+
+.tweet-image label:hover {
+    transform: scale(1.2);
 }
 
 .form .form-field input, .form .form-field textarea {
@@ -337,7 +353,6 @@ body {
 
 .post-card .post-title {
     position: relative;
-    /* text-overflow: ellipsis; */
     width: 100%;
     word-break: break-all;
 }
@@ -378,6 +393,14 @@ body {
 
 .post-card .post-content:hover {
     background-color: rgb(110, 119, 134, 0.2);
+}
+
+.post-card .post-content{
+    height: 300px;
+    width: 98%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .post-card .post-title i:hover, .post-actions i:first-child:hover,
@@ -550,10 +573,6 @@ body {
     left: 10px;
     transform: translateY(-50%);
     z-index: 1;
-}
-
-.profile-info .cover-image .profile-img:hover {
-    opacity: 0.8;
 }
 
 .profile-info ul {
@@ -748,6 +767,15 @@ body {
     font-size: 15px;
 }
 
+#sticky {
+    position: sticky;
+    top: 65px;
+}
+
+#trends .card-content {
+    display: flex;
+    padding: 25px 10px;
+}
 /* Messages formating */
 .messages {
     text-align: center;
@@ -837,7 +865,6 @@ body {
 #myModal .modal-header {
     padding: 10px 0;
     color: #fff;
-    /* height: 60px; */
     position: sticky;
     top: 0;
     background-color: var(--secondary-color);
