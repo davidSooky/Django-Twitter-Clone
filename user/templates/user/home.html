@@ -38,7 +38,7 @@
                     <div class="post-title mt-1"><a href="{{post.owner.get_absolute_url}}"><strong>{{ post.owner }}</strong></a><span> @{{post.username}} · {{ post.created_on|date:"M j, Y" }}<i class="fas fa-ellipsis-h flex-row"></i></span>
                         {% if post.owner.id == user.id %}<a href="{% url 'posts:delete-post' post.id %}" class="delete-post">Delete post ?</a>{% endif %}
                     </div>
-                    {% if post.title != "0" %}
+                    {% if post.title %}
                         <div class="post-title mt-1">{{ post.title }}</div>
                     {% endif %}
                     {% if post.tweet_image %}
