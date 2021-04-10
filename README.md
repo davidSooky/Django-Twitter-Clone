@@ -6,10 +6,10 @@ Like funcionality, searching for other peoples profiles and infinite scrolling i
 So far only posting and commenting is working, making groups or chat functionality is not implemented.
 
 ## Project Screenshots
-[!alt text](./static/images/demo.gif)
-[!alt text](./static/images/signup.png)
-[!alt text](./static/images/main_page.png)
-[!alt text](./static/images/profile_page.png)
+[!alt text](https://github.com/davidSooky/Django-Twitter-Clone/blob/master/static/images/demo.gif)
+[!alt text](https://github.com/davidSooky/Django-Twitter-Clone/blob/master/static/images/main_page.PNG)
+[!alt text](https://github.com/davidSooky/Django-Twitter-Clone/blob/master/static/images/profile_page.PNG)
+[!alt text](https://github.com/davidSooky/Django-Twitter-Clone/blob/master/static/images/signup.PNG)
 
 ## How to get started
 
