@@ -7,9 +7,9 @@ So far only posting and commenting is working, making groups or chat functionali
 
 ## Project Screenshots
 [!alt text](https://github.com/davidSooky/Django-Twitter-Clone/blob/master/static/images/demo.gif)
-[!alt text](https://github.com/davidSooky/Django-Twitter-Clone/blob/master/static/images/main_page.jpeg)
-[!alt text](https://github.com/davidSooky/Django-Twitter-Clone/blob/master/static/images/profile_page.jpeg)
-[!alt text](https://github.com/davidSooky/Django-Twitter-Clone/blob/master/static/images/signup.jpeg)
+[!alt text](https://github.com/davidSooky/Django-Twitter-Clone/blob/master/static/images/main_page.jpg)
+[!alt text](https://github.com/davidSooky/Django-Twitter-Clone/blob/master/static/images/profile_page.jpg)
+[!alt text](https://github.com/davidSooky/Django-Twitter-Clone/blob/master/static/images/signup.jpg)
 
 ## How to get started
 
