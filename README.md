@@ -7,16 +7,16 @@ So far only posting and commenting is working, making groups or chat functionali
 
 ## Project Screenshots
 
-[!Not found](https://github.com/davidSooky/Django-Twitter-Clone/blob/master/static/images/demo.gif)
-[!Not found](./static/images/main_page.JPG)
-[!Not found](./static/images/profile_page.JPG)
+![Not found](./static/images/demo.gif)
+![Not found](./static/images/main_page.jpg)
+![Not found](./static/images/profile_page.jpg)
 
 
 ## How to get started
 
 - Git Clone the project with: ```git clone https://github.com/davidSooky/Django-Twitter-Clone.git```
 
-- Move to the base directory: ```cd Django-Twitter-Clone```
+- Move to the base directory: ```cd twitter_clone```
 
 - Create a new python enveronment with: ```python -m venv env```
 
